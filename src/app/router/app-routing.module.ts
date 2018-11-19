@@ -1,5 +1,9 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { IAppContainerService } from './common/IAppContainerService';
+import { AppContainerService } from './appContainer.service';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -14,7 +18,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    { provide: IAppContainerService, useClass: AppContainerService }
   ]
 })
 
