@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables'
+html,
+body 
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+
+body 
+  font-family: $font;
+  font-size: 14px;
+
+a
+  text-decoration: none;
+  color: inherit;
+  &:hover
+    color: $hover-color;
+
+.box
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: auto;
+  margin-right: auto;
+
+.container
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  overflow: auto;
