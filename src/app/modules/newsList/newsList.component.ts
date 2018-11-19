@@ -8,4 +8,4 @@ class NewsListComponent {
 
 }
 
-export {NewsListComponent}
+export {NewsListComponent};

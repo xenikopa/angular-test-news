@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-top-news',
@@ -9,4 +9,4 @@ class TopNewsComponent {
 
 }
 
-export { TopNewsComponent }
+export { TopNewsComponent };
