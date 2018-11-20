@@ -26,15 +26,21 @@
             </a>
             <div class='tooltip'>
               <ng-container *ngIf='!(isLogin$ | async)'>
-                <span>Войти</span>
+                <h5>Войти</h5>
                 <hr />
                 <button class='btn' (click)='onClickLogin()'>Вход</button>
               </ng-container>
               <ng-container *ngIf='isLogin$ | async'>
-                <span>Admin</span>
+                <h5>Admin</h5>
                 <hr />
-                <label for='editMode'>Режим редактирования</label>
-                <input type='checkbox' id='editMode'>
+                <div class='tooltip__settings'>
+                  Режим редактирования
+                  <label class='switcher' for='editMode'>
+                    <input type='checkbox' id='editMode'>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+               
                 <button class='btn' (click)='onClickLogout()'>Выйти</button>
               </ng-container>
             </div>
