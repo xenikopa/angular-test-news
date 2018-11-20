@@ -36,14 +36,7 @@
               <ng-container *ngIf='isLogin$ | async'>
                 <h5>Admin</h5>
                 <hr />
-                <div class='tooltip__settings'>
-                  Режим редактирования
-                  <label class='switcher' for='editMode'>
-                    <input type='checkbox' id='editMode' (change)='onChangeMode($event.target.checked)'>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-               
+                <app-switcher label='Режим редактирования' (whenSwitchValue$)='onChangeMode($event)'></app-switcher>
                 <button class='btn' (click)='onClickLogout()'>Выйти</button>
               </ng-container>
             </div>

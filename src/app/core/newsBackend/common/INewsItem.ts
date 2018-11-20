@@ -5,4 +5,4 @@ export interface INewsItem {
   author: string;
   active: boolean;
   previewText?: string;
-};
+}

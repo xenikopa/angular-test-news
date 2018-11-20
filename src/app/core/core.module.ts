@@ -1,7 +1,7 @@
-import { NgModule } from "@angular/core";
-import { NewsBackendService } from "./newsBackend/newsBackend.service";
-import { CommonModule } from "@angular/common";
-import { INewsBackendService } from "./newsBackend/common/INewsBackendService";
+import { NgModule } from '@angular/core';
+import { NewsBackendService } from './newsBackend/newsBackend.service';
+import { CommonModule } from '@angular/common';
+import { INewsBackendService } from './newsBackend/common/INewsBackendService';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [

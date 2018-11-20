@@ -15,7 +15,7 @@ class NewsListComponent {
     this.backend.getAllNews();
   constructor(
     private backend: INewsBackendService,
-  ){}
+  ) {}
 }
 
 export { NewsListComponent };

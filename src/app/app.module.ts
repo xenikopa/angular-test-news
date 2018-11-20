@@ -6,6 +6,7 @@ import { AppRoutingModule } from './router/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './router/appComponent/app.component';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     CoreModule,
     AppRoutingModule,
+    SharedModule,
     RouterModule.forRoot([{
         path: '',
         component: AppComponent,
