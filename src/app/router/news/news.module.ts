@@ -3,24 +3,18 @@ import { NewsComponent } from './news.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TopNewsComponent } from 'src/app/modules/topNews/topNews.component';
-import { NewsListComponent } from 'src/app/modules/newsList/newsList.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { NewsListModule } from 'src/app/modules/newsList/newsList.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([{
       path: '',
       component: NewsComponent,
     }]),
-  ],
-  entryComponents: [
-    TopNewsComponent,
-  ],
-  declarations: [
-    TopNewsComponent,
-    NewsComponent,
-    NewsListComponent
+    NewsListModule
   ],
 })
 export class NewsModule { }

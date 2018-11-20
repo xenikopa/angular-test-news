@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBackendService';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 @Component({
   selector: 'app-news-list',
@@ -11,11 +11,32 @@ import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 })
 
 class NewsListComponent {
+
+  public isShowAll$: Subject<boolean> =
+    new BehaviorSubject(false);
+
+  public sortValue$: Subject<{
+      field: string, order: string
+  }> = new BehaviorSubject({
+    field: 'datePublication',
+    order: 'asc'
+  });
+
   public newsList$: Observable<Array<INewsItem>> =
     this.backend.getAllNews();
+
+
   constructor(
     private backend: INewsBackendService,
   ) {}
+
+  public onChangeActivity(isActive: boolean): void {
+    this.isShowAll$.next(isActive);
+  }
+
+  public onChangeSort(event): void {
+    console.log(event);
+  }
 }
 
 export { NewsListComponent };

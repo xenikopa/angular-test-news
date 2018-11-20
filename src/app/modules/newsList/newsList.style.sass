@@ -1,18 +1,29 @@
 @import '../../../variables'
 
-.news__item
-  width: 75%;
-  border-bottom: 1px solid $primary-light-color;
-  padding: 10px;
-  &:hover
-    background-color: rgba(225, 190, 231, 0.3);
-    cursor: pointer;
-  &-header
-    display: flex;
-    align-items: baseline;
-    & h3
-      margin: 0;
-    & span
-      margin-left: auto;
-  & p
-    margin: 5px 0;
+.news
+  width: 80%;
+  &__filter
+    & select
+      border: 1px solid $primary-color;
+      background: transparent;
+      font-size: 14px;
+      width: 200px;
+      outline: 0;;
+      -webkit-appearance: none;
+      border-radius: 0;
+      padding: 0 5px;
+  &__item
+    border-bottom: 1px solid $primary-light-color;
+    padding: 10px;
+    &:hover
+      background-color: rgba(225, 190, 231, 0.3);
+      cursor: pointer;
+    &-header
+      display: flex;
+      align-items: baseline;
+      & h3
+        margin: 0;
+      & span
+        margin-left: auto;
+    & p
+      margin: 5px 0;
