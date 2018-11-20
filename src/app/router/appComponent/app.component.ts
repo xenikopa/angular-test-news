@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IAppContainerService } from '../common/IAppContainerService';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,9 @@ export class AppComponent {
   public isLogin$: Observable<boolean> =
     this.appService.isAdminLogin$;
 
+  public isEditMode$: Subject<boolean> =
+    new Subject();
+
   constructor(
     private appService: IAppContainerService,
   ) {}
@@ -24,5 +27,9 @@ export class AppComponent {
 
   public onClickLogout(): void {
     this.appService.onLogoutAdmin();
+  }
+
+  public onChangeMode(checked: boolean): void {
+    this.isEditMode$.next(checked);
   }
 }
