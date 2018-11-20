@@ -1,0 +1,26 @@
+{
+  "articles": [
+    {
+      "idArticle": 1,
+      "name": "Новость 1",
+      "datePublication": "2017-12-24T21:00:00.000Z",
+      "author": "Иннокентий",
+      "active": false
+    },
+    {
+      "idArticle": 2,
+      "name": "Новость 2",
+      "datePublication": "2018-01-11T21:00:00.000Z",
+      "author": "Мирослава",
+      "active": true,
+      "previewText": "Preview Text"
+    },
+    {
+      "idArticle": 3,
+      "name": "Новость 3",
+      "datePublication": "2018-02-08T21:00:00.000Z",
+      "author": "Иннокентий",
+      "active": true
+    }
+  ]
+}

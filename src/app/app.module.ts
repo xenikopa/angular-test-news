@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './router/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './router/appComponent/app.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AppComponent } from './router/appComponent/app.component';
   imports: [
     CommonModule,
     BrowserModule,
+    CoreModule,
     AppRoutingModule,
     RouterModule.forRoot([{
         path: '',
