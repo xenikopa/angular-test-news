@@ -1,2 +1,18 @@
+@import '../../../variables'
+
 .news__item
-    
+  width: 75%;
+  border-bottom: 1px solid $primary-light-color;
+  padding: 10px;
+  &:hover
+    background-color: rgba(225, 190, 231, 0.3);
+    cursor: pointer;
+  &-header
+    display: flex;
+    align-items: baseline;
+    & h3
+      margin: 0;
+    & span
+      margin-left: auto;
+  & p
+    margin: 5px 0;

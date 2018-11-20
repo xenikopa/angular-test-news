@@ -1,5 +1,7 @@
 <div class='news__item' *ngFor='let news of (newsList$ | async)'>
-  <h3>{{news.name}}</h3>
-  <span>{{news.datePublication | date:'dd.mm.yyyy'}}</span>
-  <p>{{news?.previewText}}</p>
+  <div class='news__item-header'>
+    <h3>{{news.name}}</h3>
+    <span>{{news.datePublication | date:'dd.MM.yyyy'}}</span>
+  </div>
+  <p *ngIf='news?.previewText'> {{news?.previewText}}</p>
 </div>
