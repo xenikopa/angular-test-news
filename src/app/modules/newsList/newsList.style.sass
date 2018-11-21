@@ -2,16 +2,13 @@
 
 .news
   width: 80%;
+  margin: 16px 0;
   &__filter
-    & select
-      border: 1px solid $primary-color;
-      background: transparent;
-      font-size: 14px;
-      width: 200px;
-      outline: 0;;
-      -webkit-appearance: none;
-      border-radius: 0;
-      padding: 0 5px;
+    display: flex;
+    & .showAll
+      width: 25%;
+    & .sortSelect
+      margin-left: auto;
   &__item
     border-bottom: 1px solid $primary-light-color;
     padding: 10px;

@@ -1,23 +1,28 @@
 <div class='news'>
   <div class='news__filter'>
+    <div class='showAll'>
       <app-switcher label='Показать все новости' (whenSwitchValue$)='onChangeActivity($event)'></app-switcher>
-      <select (change)='onChangeSort($event)'>
-        <option> &#8593; По активности </option>
-        <option> &#8595; По активности </option>
-        <option> &#8593; По дате публикации</option>
-        <option selected> &#8595; По дате публикации </option>
+    </div>
+    <div class='sortSelect'>
+      <select (ngModelChange)='onChangeSort($event)' [ngModel]="(selectedSort$ | async)">
+        <option *ngFor='let item of sortList' [ngValue]='item'> 
+          <ng-container *ngIf='item.order === "asc"'>&#8593;</ng-container>
+          <ng-container *ngIf='item.order === "desc"'>&#8595;</ng-container>
+          {{item.title}} 
+        </option>
       </select>
     </div>
-    <div class='news__item' 
-        *ngFor='let news of (newsList$ | async) |
-          activityFilter: (isShowAll$ | async) |
-          sortNews: (sortValue$ | async)?.field : (sortValue$ | async)?.order
-        '
-      >
-      <div class='news__item-header'>
-        <h3>{{news.name}}</h3>
-        <span>{{news.datePublication | date:'dd.MM.yyyy'}}</span>
-      </div>
-      <p *ngIf='news?.previewText'> {{news?.previewText}}</p>
+  </div>
+  <div class='news__item' 
+      *ngFor='let news of (newsList$ | async) |
+        activityFilter: (isShowAll$ | async) |
+        sortNews: (selectedSort$ | async)?.field : (selectedSort$ | async)?.order
+      '
+    >
+    <div class='news__item-header'>
+      <h3>{{news.name}}</h3>
+      <span>{{news.datePublication | date:'dd.MM.yyyy'}}</span>
     </div>
+    <p *ngIf='news?.previewText'> {{news?.previewText}}</p>
+  </div>
 </div>
