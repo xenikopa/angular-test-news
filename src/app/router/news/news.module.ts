@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NewsComponent } from './news.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

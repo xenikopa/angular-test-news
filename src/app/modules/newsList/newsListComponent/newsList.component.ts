@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBackendService';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
-import { map } from 'rxjs/operators';
+import { INewsListService } from '../common/INewsListService';
 @Component({
   selector: 'app-news-list',
   templateUrl: './newsList.template.html',
@@ -12,6 +12,9 @@ import { map } from 'rxjs/operators';
 })
 
 class NewsListComponent {
+  @ViewChild('paginationContainer', { read: ViewContainerRef })
+  public paginationContainer: ViewContainerRef;
+
   public sortList: Array<{
     title: string, field: string, order: string
   }> =
@@ -32,11 +35,11 @@ class NewsListComponent {
   }> = new BehaviorSubject(this.sortList[0]);
 
   public newsList$: Observable<Array<INewsItem>> =
-    this.backend.getAllNews();
-
+    this.newsBackendService.getAllNews();
 
   constructor(
-    private backend: INewsBackendService,
+    private newsBackendService: INewsBackendService,
+    private newsListService: INewsListService,
   ) { }
 
   public onChangeActivity(isActive: boolean): void {
