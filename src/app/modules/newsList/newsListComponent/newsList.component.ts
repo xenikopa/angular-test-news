@@ -1,8 +1,10 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, AfterViewInit, Injector, OnDestroy } from '@angular/core';
 import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBackendService';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, combineLatest, zip, merge } from 'rxjs';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 import { INewsListService } from '../common/INewsListService';
+import { takeUntil, map, withLatestFrom, tap, first } from 'rxjs/operators';
+import { IPageParams } from '../common/IWhenPublishPageParams';
 @Component({
   selector: 'app-news-list',
   templateUrl: './newsList.template.html',
@@ -11,7 +13,7 @@ import { INewsListService } from '../common/INewsListService';
   ]
 })
 
-class NewsListComponent {
+class NewsListComponent implements AfterViewInit, OnDestroy {
   @ViewChild('paginationContainer', { read: ViewContainerRef })
   public paginationContainer: ViewContainerRef;
 
@@ -34,14 +36,45 @@ class NewsListComponent {
     title: string, field: string, order: string
   }> = new BehaviorSubject(this.sortList[0]);
 
-  public newsList$: Observable<Array<INewsItem>> =
+  private newsList$: Observable<Array<INewsItem>> =
     this.newsBackendService.getAllNews();
 
+  public pageParams$: Observable<IPageParams>;
+
+  private whenDestoryComponet$: Subject<null> =
+    new Subject();
+
+  public filtredNews$: Observable<Array<INewsItem>> =
+    combineLatest(this.isShowAll$, this.newsList$)
+    .pipe(
+      takeUntil(this.whenDestoryComponet$),
+      map(([isShowAll, list]) => isShowAll ? list : list.filter(x => x.active))
+    );
   constructor(
     private newsBackendService: INewsBackendService,
     private newsListService: INewsListService,
-  ) { }
+    private injector: Injector,
+  ) {
+    this.pageParams$ =
+      this.newsListService.whenGetPageParams$
+        .pipe(takeUntil(this.whenDestoryComponet$));
+  }
 
+  public ngAfterViewInit(): void {
+    const countElements: Observable<number> =
+      this.getCountShowNews();
+
+    this.newsListService.renderPaginaton(
+      this.paginationContainer,
+      this.injector,
+      countElements
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.whenDestoryComponet$.next(null);
+    this.whenDestoryComponet$.complete();
+  }
   public onChangeActivity(isActive: boolean): void {
     this.isShowAll$.next(isActive);
   }
@@ -51,6 +84,12 @@ class NewsListComponent {
   }): void {
     this.selectedSort$.next(sortValue);
   }
+
+  private getCountShowNews = (): Observable<number> =>
+    this.filtredNews$.pipe(
+      takeUntil(this.whenDestoryComponet$),
+      map(x => x.length)
+    )
 
 }
 

@@ -1,0 +1,31 @@
+@import '../../../../variables'
+.news__pagination
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0;
+  align-items: center;
+
+.pagination
+  display: flex;
+  margin: 0 10px 0 0;
+  & button
+    border: none;
+    background: none;
+    font-size: 14px;
+    border-bottom: 1px solid transparent;
+    &:hover
+      border-bottom: 1px solid $primary-color;
+      background: none;
+      color: $primary-color;
+      cursor: pointer;
+    &.is-active
+      background-color: rgba(225, 190, 231, 0.3);
+  &__list
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    & li:not(:last-child):after 
+        content: ' | ';
+
+  

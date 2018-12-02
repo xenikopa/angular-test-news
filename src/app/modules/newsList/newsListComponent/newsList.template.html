@@ -1,9 +1,9 @@
 <div class='news'>
   <div class='news__filter'>
-    <div class='showAll'>
+    <div class='show-all'>
       <app-switcher label='Показать все новости' (whenSwitchValue$)='onChangeActivity($event)'></app-switcher>
     </div>
-    <div class='sortSelect'>
+    <div class='sort-select select-wrapper'>
       <select (ngModelChange)='onChangeSort($event)' [ngModel]="(selectedSort$ | async)">
         <option *ngFor='let item of sortList' [ngValue]='item'> 
           <ng-container *ngIf='item.order === "asc"'>&#8593;</ng-container>
@@ -14,9 +14,9 @@
     </div>
   </div>
   <div class='news__item' 
-      *ngFor='let news of (newsList$ | async) |
-        activityFilter: (isShowAll$ | async) |
-        sortNews: (selectedSort$ | async)?.field : (selectedSort$ | async)?.order
+      *ngFor='let news of (filtredNews$ | async) |
+        sortNews: (selectedSort$ | async)?.field : (selectedSort$ | async)?.order |
+        pageParser: (pageParams$ | async)
       '
     >
     <div class='news__item-header'>
