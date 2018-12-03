@@ -53,15 +53,24 @@ class NewsListPaginationComponent implements OnDestroy {
     private whenPublishParams: IWhenPublishPageParams,
     private whenGetCountItems: IWhenGetCountItems,
   ) {
-    combineLatest(this.selectedItemsCount$, this.activePage$)
-      .pipe(
-        takeUntil(this.whenDestroyComponent$),
-        map(x => ({
-          count: x[0],
-          offset: x[1]
-        }))
-      )
-      .subscribe(x => this.whenPublishParams.publish(x));
+    combineLatest(
+      this.selectedItemsCount$,
+      this.activePage$,
+      this.lastPage$
+    ).pipe(
+      takeUntil(this.whenDestroyComponent$),
+      map(([count, activePage, lastPage]) => {
+        if (activePage > lastPage) {
+          this.activePage$.next(lastPage);
+        }
+        return { count, activePage};
+      }),
+      map(({ count, activePage }) => ({
+        count,
+        offset: activePage
+      }))
+    )
+    .subscribe(x => this.whenPublishParams.publish(x));
 
     this.whenClickNearPage$.pipe(
         takeUntil(this.whenDestroyComponent$),

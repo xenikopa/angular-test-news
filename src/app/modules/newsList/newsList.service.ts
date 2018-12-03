@@ -2,11 +2,11 @@ import { Subject, Observable } from 'rxjs';
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, Injector, ComponentFactory, ComponentRef } from '@angular/core';
 import { INewsListService } from './common/INewsListService';
 import { NewsListPaginationComponent } from './newsListPagination/newsListPagination.component';
-import { IWhenPublishPageParams } from './common/IWhenPublishPageParams';
+import { IWhenPublishPageParams, IPageParams } from './common/IWhenPublishPageParams';
 import { IWhenGetCountItems } from './common/IWhenGetCountInems';
 @Injectable()
 class NewsListService extends INewsListService {
-  public whenGetPageParams$: Subject<any> =
+  public whenGetPageParams$: Subject<IPageParams> =
     new Subject();
   private whenPublishPageParams: IWhenPublishPageParams =
     {
