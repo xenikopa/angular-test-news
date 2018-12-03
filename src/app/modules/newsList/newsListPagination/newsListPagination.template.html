@@ -14,8 +14,8 @@
         >{{page}}</button>
       </li>
     </ul>
-    <button (click)='onClickNextPage()'>></button>
-    <button (click)='onClickLastPage()'>>></button>
+    <button (click)='onClickNextPage()' [disabled]='(isLastPage$ | async)'>></button>
+    <button (click)='onClickLastPage()' [disabled]='(isLastPage$ | async)'>>></button>
   </div>
   <div class='select-wrapper'>
     <select (ngModelChange)='onChangeCount($event)' [ngModel]="selectedItemsCount$ | async">
