@@ -18,15 +18,30 @@ a
   &:hover
     color: $hover-color;
 
-select 
-  border: 1px solid $primary-color;
-  background: transparent;
-  font-size: 14px;
-  width: 200px;
-  outline: 0;;
-  -webkit-appearance: none;
-  border-radius: 0;
-  padding: 0 5px;
+.select-wrapper
+  position: relative;
+  &:after 
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #000000;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    pointer-events: none;
+
+  & select 
+    border: 1px solid $primary-color;
+    background: transparent;
+    font-size: 14px;
+    width: 100%;
+    outline: 0;;
+    -webkit-appearance: none;
+    border-radius: 0;
+    padding: 0 25px 0 5px;
+    min-width: 50px;
 
 
 /* common containers */

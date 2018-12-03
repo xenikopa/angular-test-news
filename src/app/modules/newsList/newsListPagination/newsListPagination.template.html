@@ -1,0 +1,27 @@
+<div class='news__pagination'>
+  <div class='pagination'>
+    <button (click)='onClickPage(1)' [disabled]='isActivePage$(1) | async'><<</button>
+    <button (click)='onClickPrevPage()' [disabled]='isActivePage$(1) | async'><</button>
+    <ul class='pagination__list'>
+      <li 
+        class='pagination__item' 
+        *ngFor='let page of (pages$ | async)'
+      >
+        <button 
+          [class.is-active]='isActivePage$(page) | async'
+          value='{{page}}' 
+          (click)='onClickPage($event.target.value)'
+        >{{page}}</button>
+      </li>
+    </ul>
+    <button (click)='onClickNextPage()' [disabled]='(isLastPage$ | async)'>></button>
+    <button (click)='onClickLastPage()' [disabled]='(isLastPage$ | async)'>>></button>
+  </div>
+  <div class='select-wrapper'>
+    <select (ngModelChange)='onChangeCount($event)' [ngModel]="selectedItemsCount$ | async">
+      <option *ngFor='let item of itemsOnPageCount' [ngValue]='item'> 
+        {{item}} 
+      </option>
+    </select>
+  </div>
+</div>

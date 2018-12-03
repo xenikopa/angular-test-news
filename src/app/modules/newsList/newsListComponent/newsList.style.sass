@@ -1,13 +1,13 @@
-@import '../../../variables'
+@import '../../../../variables'
 
 .news
   width: 80%;
   margin: 16px 0;
   &__filter
     display: flex;
-    & .showAll
+    & .show-all
       width: 25%;
-    & .sortSelect
+    & .sort-select
       margin-left: auto;
   &__item
     border-bottom: 1px solid $primary-light-color;
@@ -20,6 +20,7 @@
       align-items: baseline;
       & h3
         margin: 0;
+        padding-right: 5px;
       & span
         margin-left: auto;
     & p
