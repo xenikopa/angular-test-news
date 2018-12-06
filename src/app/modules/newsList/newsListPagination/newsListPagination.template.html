@@ -1,6 +1,6 @@
 <div class='news__pagination'>
   <div class='pagination'>
-    <button (click)='onClickPage(1)' [disabled]='isActivePage$(1) | async'><<</button>
+    <button (click)='onClickPage("1")' [disabled]='isActivePage$(1) | async'><<</button>
     <button (click)='onClickPrevPage()' [disabled]='isActivePage$(1) | async'><</button>
     <ul class='pagination__list'>
       <li 

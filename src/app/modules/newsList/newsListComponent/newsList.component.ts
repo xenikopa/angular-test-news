@@ -36,10 +36,10 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     title: string, field: string, order: string
   }> = new BehaviorSubject(this.sortList[0]);
 
+  public pageParams$: Observable<IPageParams>;
+
   private newsList$: Observable<Array<INewsItem>> =
     this.newsBackendService.getAllNews();
-
-  public pageParams$: Observable<IPageParams>;
 
   private whenDestoryComponet$: Subject<null> =
     new Subject();
