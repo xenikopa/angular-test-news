@@ -5,6 +5,7 @@ import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 import { INewsListService } from '../common/INewsListService';
 import { takeUntil, map, withLatestFrom, tap, first } from 'rxjs/operators';
 import { IPageParams } from '../common/IWhenPublishPageParams';
+import { IAppContainerService } from 'src/app/router/common/IAppContainerService';
 @Component({
   selector: 'app-news-list',
   templateUrl: './newsList.template.html',
@@ -38,6 +39,7 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
 
   public pageParams$: Observable<IPageParams>;
 
+  public isEditMode$: Observable<boolean>;
   private newsList$: Observable<Array<INewsItem>> =
     this.newsBackendService.getAllNews();
 
@@ -54,9 +56,14 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     private newsBackendService: INewsBackendService,
     private newsListService: INewsListService,
     private injector: Injector,
+    private appService: IAppContainerService,
   ) {
     this.pageParams$ =
       this.newsListService.whenGetPageParams$
+        .pipe(takeUntil(this.whenDestoryComponet$));
+
+    this.isEditMode$ =
+      this.appService.isEditMode$
         .pipe(takeUntil(this.whenDestoryComponet$));
   }
 

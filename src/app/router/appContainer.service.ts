@@ -6,6 +6,9 @@ import { Subject, BehaviorSubject } from 'rxjs';
 class AppContainerService extends IAppContainerService {
   public isAdminLogin$: Subject<boolean> =
     new BehaviorSubject(false);
+
+  public isEditMode$: Subject<boolean> =
+    new BehaviorSubject(false);
   constructor() {
     super();
   }
@@ -16,6 +19,10 @@ class AppContainerService extends IAppContainerService {
 
   public onLogoutAdmin(): void {
     this.isAdminLogin$.next(false);
+  }
+
+  public onChangeAppMode(isEdit): void {
+    this.isEditMode$.next(isEdit);
   }
 }
 

@@ -10,12 +10,8 @@ import { Observable, Subject } from 'rxjs';
   ]
 })
 export class AppComponent {
-
   public isLogin$: Observable<boolean> =
     this.appService.isAdminLogin$;
-
-  public isEditMode$: Subject<boolean> =
-    new Subject();
 
   constructor(
     private appService: IAppContainerService,
@@ -30,6 +26,6 @@ export class AppComponent {
   }
 
   public onChangeMode(checked: boolean): void {
-    this.isEditMode$.next(checked);
+    this.appService.onChangeAppMode(checked);
   }
 }

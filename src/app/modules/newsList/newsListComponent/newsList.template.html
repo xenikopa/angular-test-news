@@ -24,6 +24,10 @@
       <span>{{news.datePublication | date:'dd.MM.yyyy'}}</span>
     </div>
     <p *ngIf='news?.previewText'> {{news?.previewText}}</p>
+    <div class='news__edit-actions' *ngIf='isEditMode$ | async'>
+      <button class='btn' type='button'>Редактировать &#9998;</button>
+      <button class='btn' type='button'>Удалить &#10006;</button>
+    </div>
   </div>
   <ng-container #paginationContainer></ng-container>
 </div>
