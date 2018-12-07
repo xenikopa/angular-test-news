@@ -12,6 +12,9 @@ class SwitcherComponent {
   @Input()
   public label: string;
 
+  @Input()
+  public value;
+
   @Output()
   public whenSwitchValue$: EventEmitter<boolean> =
     new EventEmitter();

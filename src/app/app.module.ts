@@ -7,7 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './router/appComponent/app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,8 @@ import { SharedModule } from './shared/shared.module';
         component: AppComponent,
         loadChildren: './router/app-routing.module#AppRoutingModule'
     }]),
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

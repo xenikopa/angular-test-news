@@ -92,6 +92,11 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     this.selectedSort$.next(sortValue);
   }
 
+  public onClickEdit(item: INewsItem): void {
+    this.newsListService.openEditNewsModal(item)
+      .subscribe(x => console.log(x));
+  }
+
   private getCountShowNews = (): Observable<number> =>
     this.filtredNews$.pipe(
       takeUntil(this.whenDestoryComponet$),

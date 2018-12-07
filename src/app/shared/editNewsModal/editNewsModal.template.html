@@ -1,0 +1,24 @@
+<h2>Редактирование "{{newsData.name}}"</h2>
+<form>
+  <div class='form-field'>
+    <label for='name'>Заголовок статьи</label>
+    <input type='text' [(ngModel)]='newsData.name' name='name'/>
+  </div>
+  <div class='form-field'>
+    <label for='author'>Автор</label>
+    <input type='text' [(ngModel)]='newsData.author' name='author'/>
+  </div>
+  <div class='form-field'>
+    <app-switcher label='Активность' value='{{newsData.active}}' (whenSwitchValue$)='onChangeActive($event)'></app-switcher>
+    <!-- <label for='active'>Активность</label>
+    <input type='checkbox' [(ngModel)]='newsData.active' name='active'/> -->
+  </div>
+  <div class='form-field'>
+    <label for='previewText'>Превью</label>
+    <textarea [(ngModel)]='newsData.previewText' name='previewText' rows="5" ></textarea>
+  </div>
+</form>
+<div class='btn__block'>
+  <button class='btn'>Сохранить</button>
+  <button class='btn' (click)='onClose()'>Закрыть</button>
+</div>
