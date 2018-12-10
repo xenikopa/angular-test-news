@@ -1,7 +1,12 @@
 <div class='switcher'>
   {{label}} 
   <label class='switcher__box'>
-    <input type='checkbox' (change)='onChangeValue($event.target.checked)' [attr.checked]='value'>
+    <input 
+      type='checkbox' 
+      (change)='onChangeValue($event.target.checked)' 
+      [attr.checked]='value'
+      [(ngModel)]="value"
+    >
     <span class="slider"></span>
   </label>
 </div>

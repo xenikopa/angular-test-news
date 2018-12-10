@@ -92,6 +92,10 @@ a
     padding: 2px 5px 2px 5px;
     font-size: 14px;
     overflow: hidden;
+  &.is-required label:after
+    content: '*';
+  &.has-error 
+    border-bottom-color: red;
   & input[type="text"], textarea
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -104,3 +108,18 @@ a
     line-height: 25px;
     font-size: 16px;
     padding: 0;
+  &__error
+    color: red;
+    font-size: 13px;
+    border: 1px solid;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    & button
+      border: none;
+      color: inherit;
+      background: inherit;
+      margin-left: auto;
+      font-size: 16px; 
+      &:hover
+        cursor: pointer;
