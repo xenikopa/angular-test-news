@@ -8,7 +8,7 @@ class AppContainerService extends IAppContainerService {
     new BehaviorSubject(false);
 
   public isEditMode$: Subject<boolean> =
-    new BehaviorSubject(true);
+    new BehaviorSubject(false);
   constructor() {
     super();
   }

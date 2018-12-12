@@ -7,6 +7,7 @@ import { takeUntil, map, withLatestFrom, tap, first, concatMap, filter } from 'r
 import { IPageParams } from '../common/IWhenPublishPageParams';
 import { IAppContainerService } from 'src/app/router/common/IAppContainerService';
 import { isNull } from 'util';
+import { INotification } from 'src/app/core/notificationService/INotification';
 @Component({
   selector: 'app-news-list',
   templateUrl: './newsList.template.html',
@@ -62,6 +63,7 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     private newsListService: INewsListService,
     private injector: Injector,
     private appService: IAppContainerService,
+    private notify: INotification
   ) {
     this.newsBackendService.getAllNews()
       .pipe(first())
@@ -92,7 +94,10 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
           return news;
         })
       )
-      .subscribe(x => this.newsList$.next(x));
+      .subscribe(x => {
+        this.notify.openNotification('Изменения успешно сохранены');
+        this.newsList$.next(x);
+      });
   }
 
   public ngAfterViewInit(): void {
