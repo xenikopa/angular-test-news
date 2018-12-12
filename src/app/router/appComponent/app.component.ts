@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IAppContainerService } from '../common/IAppContainerService';
 import { Observable, Subject } from 'rxjs';
+import { NotificationService } from 'src/app/core/notificationService/notification.service';
+import { INotification } from 'src/app/core/notificationService/INotification';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ export class AppComponent {
 
   constructor(
     private appService: IAppContainerService,
+    private notify: INotification
   ) {}
 
   public onClickLogin(): void {
@@ -27,5 +30,10 @@ export class AppComponent {
 
   public onChangeMode(checked: boolean): void {
     this.appService.onChangeAppMode(checked);
+
+    const notifyMessage: string =
+      'Режим редактирования ' + (checked ? 'включен' : 'выключен');
+
+    this.notify.openNotification(notifyMessage);
   }
 }

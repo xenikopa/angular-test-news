@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditNewsModalComponent } from "./editNewsModal.component";
+import { EditNewsModalComponent } from './editNewsModal.component';
 import { SharedModule } from '../shared.module';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
