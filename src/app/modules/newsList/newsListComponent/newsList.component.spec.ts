@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { NewsListComponent } from './newsList.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -9,6 +10,8 @@ import { NewsListService } from '../newsList.service';
 import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBackendService';
 import { NewsBackendService } from 'src/app/core/newsBackend/newsBackend.service';
 import { INewsListService } from '../common/INewsListService';
+import { IAppContainerService } from 'src/app/router/common/IAppContainerService';
+import { AppContainerService } from 'src/app/router/appContainer.service';
 
 describe('News List Component', () => {
   let componentFixture: ComponentFixture<NewsListComponent>;
@@ -21,6 +24,7 @@ describe('News List Component', () => {
         FormsModule,
         HttpClientModule,
         SharedModule,
+        MatDialogModule
       ],
       declarations: [
         NewsListComponent,
@@ -29,7 +33,8 @@ describe('News List Component', () => {
       ],
       providers: [
         {provide: INewsBackendService, useClass: NewsBackendService },
-        { provide: INewsListService, useClass: NewsListService }
+        { provide: INewsListService, useClass: NewsListService },
+        { provide: IAppContainerService, useClass: AppContainerService }
       ]
     });
     componentFixture = TestBed.createComponent(NewsListComponent);

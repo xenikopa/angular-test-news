@@ -3,8 +3,10 @@ import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBacken
 import { Observable, BehaviorSubject, Subject, combineLatest, zip, merge } from 'rxjs';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 import { INewsListService } from '../common/INewsListService';
-import { takeUntil, map, withLatestFrom, tap, first } from 'rxjs/operators';
+import { takeUntil, map, withLatestFrom, tap, first, concatMap, filter } from 'rxjs/operators';
 import { IPageParams } from '../common/IWhenPublishPageParams';
+import { IAppContainerService } from 'src/app/router/common/IAppContainerService';
+import { isNull } from 'util';
 @Component({
   selector: 'app-news-list',
   templateUrl: './newsList.template.html',
@@ -38,10 +40,15 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
 
   public pageParams$: Observable<IPageParams>;
 
-  private newsList$: Observable<Array<INewsItem>> =
-    this.newsBackendService.getAllNews();
+  public isEditMode$: Observable<boolean>;
+
+  private newsList$: Subject<Array<INewsItem>> =
+    new Subject();
 
   private whenDestoryComponet$: Subject<null> =
+    new Subject();
+
+  private whenEditNews$: Subject<INewsItem> =
     new Subject();
 
   public filtredNews$: Observable<Array<INewsItem>> =
@@ -54,10 +61,38 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     private newsBackendService: INewsBackendService,
     private newsListService: INewsListService,
     private injector: Injector,
+    private appService: IAppContainerService,
   ) {
+    this.newsBackendService.getAllNews()
+      .pipe(first())
+      .subscribe(x => this.newsList$.next(x));
+
     this.pageParams$ =
       this.newsListService.whenGetPageParams$
         .pipe(takeUntil(this.whenDestoryComponet$));
+
+    this.isEditMode$ =
+      this.appService.isEditMode$
+        .pipe(takeUntil(this.whenDestoryComponet$));
+
+    this.whenEditNews$
+      .pipe(
+        takeUntil(this.whenDestoryComponet$),
+        concatMap(x =>
+          this.newsListService.openEditNewsModal(x)
+        ),
+        filter(x => !isNull(x)),
+        withLatestFrom(this.newsList$),
+        map(([item, news]) => {
+          const indexNews: number =
+            news.findIndex(x => x.idArticle === item.idArticle);
+          if (indexNews !== -1) {
+            news[indexNews] = item;
+          }
+          return news;
+        })
+      )
+      .subscribe(x => this.newsList$.next(x));
   }
 
   public ngAfterViewInit(): void {
@@ -83,6 +118,10 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     title: string, field: string, order: string
   }): void {
     this.selectedSort$.next(sortValue);
+  }
+
+  public onClickEdit(item: INewsItem): void {
+    this.whenEditNews$.next(item);
   }
 
   private getCountShowNews = (): Observable<number> =>

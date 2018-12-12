@@ -1,0 +1,39 @@
+<h2>Редактирование "{{newsData.name}}"</h2>
+<form #editForm="ngForm" (ngSubmit)="editForm.valid && onSubmit(editForm.value)">
+  <div class='form-field is-required'
+    [class.has-error]='name.invalid && (name.dirty || name.touched)'  
+  >
+    <label for='name'>Заголовок статьи</label>
+    <input 
+      type='text' 
+      [ngModel]='newsData.name' 
+      name='name'
+      required 
+      minlength="4"
+      #name="ngModel"
+    />
+    <div class='form-field__error' *ngIf="name.invalid && (name.dirty || name.touched) && editForm.submitted && !isCloseNameError">
+      Поле необходимо заполнить. Длина заголовка должна быть более 4 символов
+      <button type='button' (click)='isCloseNameError = true'>&#215;</button>
+    </div>
+  </div>
+  <div class='form-field is-required' [class.has-error]='author.invalid && (author.dirty || author.touched)'  >
+    <label for='author'>Автор</label>
+    <input type='text' [ngModel]='newsData.author' name='author' required  #author="ngModel"/>
+    <div class='form-field__error' *ngIf="author.invalid && (author.dirty || author.touched) && editForm.submitted && !isCloseAuthorError">
+      Поле необходимо заполнить
+      <button type='button' (click)='isCloseAuthorError = true'>&#215;</button>
+    </div>
+  </div>
+  <div class='form-field'>
+    <app-switcher label='Активность' [ngModel]='newsData.active' name='active'></app-switcher>
+  </div>
+  <div class='form-field'>
+    <label for='previewText'>Превью</label>
+    <textarea [ngModel]='newsData.previewText' name='previewText' rows="5" ></textarea>
+  </div>
+  <div class='btn__block'>
+    <button class='btn' type='submit'>Сохранить</button>
+    <button class='btn' (click)='onClose()' type='button'>Закрыть</button>
+  </div>
+</form>

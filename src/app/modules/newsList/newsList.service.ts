@@ -4,6 +4,9 @@ import { INewsListService } from './common/INewsListService';
 import { NewsListPaginationComponent } from './newsListPagination/newsListPagination.component';
 import { IWhenPublishPageParams, IPageParams } from './common/IWhenPublishPageParams';
 import { IWhenGetCountItems } from './common/IWhenGetCountInems';
+import { EditNewsModalComponent } from 'src/app/shared/editNewsModal/editNewsModal.component';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 @Injectable()
 class NewsListService extends INewsListService {
   public whenGetPageParams$: Subject<IPageParams> =
@@ -14,6 +17,7 @@ class NewsListService extends INewsListService {
     };
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
+    private editModal: MatDialog
   ) {
     super();
   }
@@ -40,7 +44,11 @@ class NewsListService extends INewsListService {
 
     container.changeDetectorRef.detectChanges();
 
-}
+  }
+
+  public openEditNewsModal(item: INewsItem): Observable<INewsItem> {
+    return this.editModal.open(EditNewsModalComponent, {data: item}).afterClosed();
+  }
 
 }
 

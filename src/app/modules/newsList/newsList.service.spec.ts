@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ViewContainerRef, Injector } from '@angular/core';
 import { of } from 'rxjs';
 import { NewsListPaginationComponent } from './newsListPagination/newsListPagination.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('News List Service Tests', () => {
   let service: NewsListService;
@@ -19,6 +20,7 @@ describe('News List Service Tests', () => {
         HttpClientModule,
         NewsListModule,
         SharedModule,
+        MatDialogModule
       ],
       providers: [
         NewsListService
