@@ -17,20 +17,36 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 
 class SwitcherComponent implements ControlValueAccessor {
+  //#region public vars
   @Input()
   public label: string;
 
   @Input()
-  public value: boolean;
+  public innerValue: boolean;
 
   @Output()
   public whenSwitchValue$: EventEmitter<boolean> =
     new EventEmitter();
 
+  public get value(): boolean {
+    return this.innerValue;
+  }
+
+  public set value(v: boolean) {
+    if (v !== this.innerValue) {
+      this.innerValue = v;
+      this.onChangeCallback(v);
+    }
+  }
+  //#endregion
+
+  //#region private vars
   private onTouchedCallback: () => void =
     () => {}
   private onChangeCallback: (_: any) => void =
     () => {}
+
+  //#endregion
   constructor() {}
 
   public onChangeValue(checked: boolean): void {
@@ -38,6 +54,7 @@ class SwitcherComponent implements ControlValueAccessor {
     this.onTouchedCallback();
   }
 
+  //#region default value accessor methods
   public writeValue(value: boolean): void {
     if (value !== this.value) {
       this.value = value;
@@ -49,6 +66,8 @@ class SwitcherComponent implements ControlValueAccessor {
   public registerOnTouched(fn: any): void {
     this.onTouchedCallback = fn;
   }
+
+  //#endregion
 }
 
 export {SwitcherComponent};

@@ -46,7 +46,7 @@ class NewsListService extends INewsListService {
 
   }
 
-  public openEditNewsModal(item: INewsItem): Observable<any> {
+  public openEditNewsModal(item: INewsItem): Observable<INewsItem> {
     return this.editModal.open(EditNewsModalComponent, {data: item}).afterClosed();
   }
 

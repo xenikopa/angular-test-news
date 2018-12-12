@@ -1,5 +1,5 @@
 <h2>Редактирование "{{newsData.name}}"</h2>
-<form #editForm="ngForm" (ngSubmit)="editForm.valid && onSubmit(editForm)">
+<form #editForm="ngForm" (ngSubmit)="editForm.valid && onSubmit(editForm.value)">
   <div class='form-field is-required'
     [class.has-error]='name.invalid && (name.dirty || name.touched)'  
   >
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class='form-field'>
-    <app-switcher label='Активность' [ngModel]='newsData.active' name='active' value='{{newsData.active}}'></app-switcher>
+    <app-switcher label='Активность' [ngModel]='newsData.active' name='active'></app-switcher>
   </div>
   <div class='form-field'>
     <label for='previewText'>Превью</label>
