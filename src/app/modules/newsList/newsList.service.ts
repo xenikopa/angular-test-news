@@ -1,12 +1,15 @@
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import { Injectable, ComponentFactoryResolver, ViewContainerRef, Injector, ComponentFactory, ComponentRef } from '@angular/core';
 import { INewsListService } from './common/INewsListService';
 import { NewsListPaginationComponent } from './newsListPagination/newsListPagination.component';
 import { IWhenPublishPageParams, IPageParams } from './common/IWhenPublishPageParams';
 import { IWhenGetCountItems } from './common/IWhenGetCountInems';
 import { EditNewsModalComponent } from 'src/app/shared/editNewsModal/editNewsModal.component';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
+import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBackendService';
+import { concatMap, filter, withLatestFrom, map } from 'rxjs/operators';
+import { isNull } from 'util';
 @Injectable()
 class NewsListService extends INewsListService {
   public whenGetPageParams$: Subject<IPageParams> =
@@ -15,11 +18,37 @@ class NewsListService extends INewsListService {
     {
       publish: params => this.whenGetPageParams$.next(params)
     };
+
+  private newsList$: Observable<Array<INewsItem>> =
+    this.newsBackendService.getAllNews();
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private editModal: MatDialog
+    private editModal: MatDialog,
+    private newsBackendService: INewsBackendService,
   ) {
     super();
+  }
+
+  public getNews(): Observable<Array<INewsItem>> {
+    return this.newsList$;
+  }
+
+  public onEditNews(news: INewsItem): Observable<Array<INewsItem>> {
+    return of(news).pipe(
+      concatMap(x =>
+        this.openEditNewsModal(x)
+      ),
+      filter(x => !isNull(x)),
+      withLatestFrom(this.newsList$),
+      map(([item, news]) => {
+        const indexNews: number =
+          news.findIndex(x => x.idArticle === item.idArticle);
+        if (indexNews !== -1) {
+          news[indexNews] = item;
+        }
+        return news;
+      })
+    );
   }
 
   public renderPaginaton(viewContainer: ViewContainerRef, injector: Injector, countElements: Observable<number>): void {
@@ -46,10 +75,9 @@ class NewsListService extends INewsListService {
 
   }
 
-  public openEditNewsModal(item: INewsItem): Observable<INewsItem> {
+  private openEditNewsModal(item: INewsItem): Observable<INewsItem> {
     return this.editModal.open(EditNewsModalComponent, {data: item}).afterClosed();
   }
-
 }
 
 export { NewsListService };

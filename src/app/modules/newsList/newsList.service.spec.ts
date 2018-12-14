@@ -6,7 +6,6 @@ import { TestComponent } from 'src/app/shared/testComponent/test.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewContainerRef, Injector } from '@angular/core';
 import { of } from 'rxjs';
-import { NewsListPaginationComponent } from './newsListPagination/newsListPagination.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 describe('News List Service Tests', () => {

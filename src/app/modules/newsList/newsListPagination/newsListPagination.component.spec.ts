@@ -1,7 +1,6 @@
-import { first, map } from 'rxjs/operators';
 import { NewsListPaginationComponent } from './newsListPagination.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { of, Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { IWhenGetCountItems } from '../common/IWhenGetCountInems';
 import { FormsModule } from '@angular/forms';
 import { IWhenPublishPageParams, IPageParams } from '../common/IWhenPublishPageParams';

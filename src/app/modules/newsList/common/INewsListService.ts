@@ -8,13 +8,10 @@ abstract class INewsListService {
    * params and method for paginator
    */
   public abstract whenGetPageParams$: Observable<IPageParams>;
-  public abstract renderPaginaton(viewContainer: ViewContainerRef, injector: Injector, countElements: Observable<number>): void;
+  public abstract getNews(): Observable<Array<INewsItem>>;
 
-  /**
-   * method for open edit modal
-   * @param item - edited item
-   */
-  public abstract openEditNewsModal(item: INewsItem): Observable<INewsItem>;
+  public abstract onEditNews(news: INewsItem): Observable<Array<INewsItem>>;
+  public abstract renderPaginaton(viewContainer: ViewContainerRef, injector: Injector, countElements: Observable<number>): void;
 }
 
 export {INewsListService};

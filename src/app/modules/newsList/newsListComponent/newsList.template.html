@@ -15,8 +15,8 @@
   </div>
   <div class='news__item' 
       *ngFor='let news of (filtredNews$ | async) |
-        sortNews: (selectedSort$ | async)?.field : (selectedSort$ | async)?.order |
-        pageParser: (pageParams$ | async)
+        pageParser: (pageParams$ | async) |
+        sortNews: (selectedSort$ | async)?.field : (selectedSort$ | async)?.order
       '
     >
     <div class='news__item-header'>
@@ -26,7 +26,7 @@
     <p *ngIf='news?.previewText'> {{news?.previewText}}</p>
     <div class='btn__block' *ngIf='isEditMode$ | async'>
       <button class='btn' type='button' (click)='onClickEdit(news)'>Редактировать &#9998;</button>
-      <button class='btn' type='button'>Удалить &#10006;</button>
+      <button class='btn' (click)='onClickRemove(news)' type='button'>Удалить &#10006;</button>
     </div>
   </div>
   <ng-container #paginationContainer></ng-container>

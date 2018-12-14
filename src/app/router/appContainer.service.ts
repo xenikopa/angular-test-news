@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { IAppContainerService } from './common/IAppContainerService';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { IConfirmData } from '../shared/confirmModal/IConfirmData';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmModalComponent } from '../shared/confirmModal/confirmModal.component';
 
 @Injectable()
 class AppContainerService extends IAppContainerService {
@@ -9,7 +12,9 @@ class AppContainerService extends IAppContainerService {
 
   public isEditMode$: Subject<boolean> =
     new BehaviorSubject(false);
-  constructor() {
+  constructor(
+    private confirm: MatDialog
+  ) {
     super();
   }
 
@@ -21,8 +26,12 @@ class AppContainerService extends IAppContainerService {
     this.isAdminLogin$.next(false);
   }
 
-  public onChangeAppMode(isEdit): void {
+  public onChangeAppMode(isEdit: boolean): void {
     this.isEditMode$.next(isEdit);
+  }
+
+  public openConfirmModal(data: IConfirmData): Observable<boolean> {
+    return this.confirm.open(ConfirmModalComponent, { data }).afterClosed();
   }
 }
 

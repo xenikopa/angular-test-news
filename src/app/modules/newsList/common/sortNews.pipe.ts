@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
-import { isNull, isNullOrUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 
 @Pipe({
   'name': 'sortNews'
