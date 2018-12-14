@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { IWhenPublishPageParams, IPageParams } from '../common/IWhenPublishPageParams';
+import { IWhenPublishPageParams } from '../common/IWhenPublishPageParams';
 import { IWhenGetCountItems } from '../common/IWhenGetCountInems';
-import { Observable, Subject, BehaviorSubject, combineLatest, zip } from 'rxjs';
-import { map, count, mapTo, withLatestFrom, takeUntil, tap, multicast, concatMap, first } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, withLatestFrom, takeUntil } from 'rxjs/operators';
 
 @Component({
   templateUrl: './newsListPagination.template.html',

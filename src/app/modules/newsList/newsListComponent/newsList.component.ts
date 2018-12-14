@@ -1,13 +1,12 @@
 import { Component, ViewChild, ViewContainerRef, AfterViewInit, Injector, OnDestroy } from '@angular/core';
-import { INewsBackendService } from 'src/app/core/newsBackend/common/INewsBackendService';
-import { Observable, BehaviorSubject, Subject, combineLatest, zip, merge } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import { INewsItem } from 'src/app/core/newsBackend/common/INewsItem';
 import { INewsListService } from '../common/INewsListService';
-import { takeUntil, map, withLatestFrom, tap, first, concatMap, filter } from 'rxjs/operators';
+import { takeUntil, map, withLatestFrom, first, concatMap, filter, mapTo } from 'rxjs/operators';
 import { IPageParams } from '../common/IWhenPublishPageParams';
 import { IAppContainerService } from 'src/app/router/common/IAppContainerService';
-import { isNull } from 'util';
 import { INotification } from 'src/app/core/notificationService/INotification';
+import { IConfirmData } from 'src/app/shared/confirmModal/IConfirmData';
 @Component({
   selector: 'app-news-list',
   templateUrl: './newsList.template.html',
@@ -51,6 +50,8 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
 
   private whenEditNews$: Subject<INewsItem> =
     new Subject();
+  private whenRemoveNews$: Subject<INewsItem> =
+    new Subject();
 
   public filtredNews$: Observable<Array<INewsItem>> =
     combineLatest(this.isShowAll$, this.newsList$)
@@ -59,13 +60,12 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
       map(([isShowAll, list]) => isShowAll ? list : list.filter(x => x.active))
     );
   constructor(
-    private newsBackendService: INewsBackendService,
     private newsListService: INewsListService,
     private injector: Injector,
     private appService: IAppContainerService,
     private notify: INotification
   ) {
-    this.newsBackendService.getAllNews()
+    this.newsListService.getNews()
       .pipe(first())
       .subscribe(x => this.newsList$.next(x));
 
@@ -80,19 +80,28 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     this.whenEditNews$
       .pipe(
         takeUntil(this.whenDestoryComponet$),
-        concatMap(x =>
-          this.newsListService.openEditNewsModal(x)
+        concatMap(x => this.newsListService.onEditNews(x))
+      )
+      .subscribe(x => {
+        this.notify.openNotification('Изменения успешно сохранены');
+        this.newsList$.next(x);
+      });
+
+    this.whenRemoveNews$
+      .pipe(
+        map(item => ({
+          confirmData: this.getConfirmData(item),
+          item
+        })),
+        concatMap(({confirmData, item}) =>
+          this.appService.openConfirmModal(confirmData)
+            .pipe(
+              filter(isConfirm => isConfirm),
+              mapTo(item)
+            )
         ),
-        filter(x => !isNull(x)),
         withLatestFrom(this.newsList$),
-        map(([item, news]) => {
-          const indexNews: number =
-            news.findIndex(x => x.idArticle === item.idArticle);
-          if (indexNews !== -1) {
-            news[indexNews] = item;
-          }
-          return news;
-        })
+        map(([item, news]) => news.filter(x => x.idArticle !== item.idArticle))
       )
       .subscribe(x => {
         this.notify.openNotification('Изменения успешно сохранены');
@@ -129,12 +138,24 @@ class NewsListComponent implements AfterViewInit, OnDestroy {
     this.whenEditNews$.next(item);
   }
 
+  public onClickRemove(item: INewsItem): void {
+   this.whenRemoveNews$.next(item);
+  }
   private getCountShowNews = (): Observable<number> =>
     this.filtredNews$.pipe(
       takeUntil(this.whenDestoryComponet$),
       map(x => x.length)
     )
 
+  private getConfirmData = (item: INewsItem): IConfirmData =>
+    ({
+      title: `Удаление статьи ${item.name}`,
+      text: `Подтвердите удаление статьи №${item.idArticle}.
+      Дополнительная информация:
+        - Наименование '${item.name}'
+        - Автор ${item.author}
+      `
+    })
 }
 
 export { NewsListComponent };

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IAppContainerService } from '../common/IAppContainerService';
-import { Observable, Subject } from 'rxjs';
-import { NotificationService } from 'src/app/core/notificationService/notification.service';
+import { Observable } from 'rxjs';
 import { INotification } from 'src/app/core/notificationService/INotification';
 
 @Component({

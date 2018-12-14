@@ -1,22 +1,26 @@
-import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgModule, forwardRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { SwitcherComponent } from './switcherComponent/switcher.component';
 import { CommonModule } from '@angular/common';
 import { TestComponent } from './testComponent/test.component';
 import { EditNewsModalComponent } from './editNewsModal/editNewsModal.component';
+import { ConfirmModalComponent } from './confirmModal/confirmModal.component';
 
 @NgModule({
   declarations: [
     SwitcherComponent,
     TestComponent,
-    EditNewsModalComponent
+    EditNewsModalComponent,
+    ConfirmModalComponent
   ],
   entryComponents: [
-    EditNewsModalComponent
+    EditNewsModalComponent,
+    ConfirmModalComponent
   ],
   exports: [
     SwitcherComponent,
-    EditNewsModalComponent
+    EditNewsModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     CommonModule,

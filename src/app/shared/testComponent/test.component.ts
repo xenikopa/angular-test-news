@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewContainerRef, ViewChild, Injector } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, Injector } from '@angular/core';
 
-import { Subject, ReplaySubject } from 'rxjs';
 
 @Component({
   template: '<div #ref></div>'

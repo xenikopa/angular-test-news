@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { IConfirmData } from 'src/app/shared/confirmModal/IConfirmData';
 
 export abstract class IAppContainerService {
   /**
@@ -18,4 +19,10 @@ export abstract class IAppContainerService {
    */
 
    public abstract onChangeAppMode(isEdit: boolean): void;
+
+   /**
+    *
+    * @param data - data for visual in confirm modal
+    */
+   public abstract openConfirmModal(data: IConfirmData): Observable<boolean>;
 }
