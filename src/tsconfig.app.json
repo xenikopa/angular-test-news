@@ -6,6 +6,16 @@
   },
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "environments/environment.prod.ts",
+  ],
+  "files": [
+    "main.ts",
+    "polyfills.ts",
+    "environments/environment.ts",
+  ],
+  "include": [
+    "**/*.ts",
+    "environments/environment.prod.ts"
   ]
 }
