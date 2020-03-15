@@ -14,7 +14,7 @@ Stack:
 
 [Mockups for develop](https://github.com/xenikopa/angular-test-news/tree/master/src/assets/mockups)
 
-[Project view](https://github.com/xenikopa/angular-test-news/tree/master/src/assets/mockups/project-view.png)
+![Project view](src/assets/mockups/project-view.png)
 
 ## Installation
 
