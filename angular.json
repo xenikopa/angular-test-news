@@ -8,11 +8,6 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {
-        "@schematics/angular:component": {
-          "styleext": "sass"
-        }
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -136,5 +131,10 @@
       }
     }
   },
-  "defaultProject": "app-news"
+  "defaultProject": "app-news",
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "sass"
+    }
+  }
 }

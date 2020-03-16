@@ -38,3 +38,11 @@ Navigate to `http://localhost:4200/`.
 
 Get prod builded files with command
 >`npm run build:prod`
+
+Run test with command
+
+>`npm run test`
+
+Run linter and fix all with command
+
+>`npm run lint:fix`

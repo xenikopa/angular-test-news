@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './router/app-routing.module';
-import { RouterModule } from '@angular/router';
-import { AppComponent } from './router/appComponent/app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app-component/app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NewsModule } from './modules/news/news.module';
+import { IAppContainerService } from './app-component/common/IAppContainerService';
+import { AppService } from './app-component/app.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,15 +21,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CoreModule,
     AppRoutingModule,
     SharedModule,
-    RouterModule.forRoot([{
-        path: '',
-        component: AppComponent,
-        loadChildren: './router/app-routing.module#AppRoutingModule'
-    }]),
     BrowserAnimationsModule,
     MatDialogModule,
+    NewsModule
   ],
-  providers: [],
+  providers: [
+    { provide: IAppContainerService, useClass: AppService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

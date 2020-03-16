@@ -5,7 +5,9 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+
+    "module": "esnext"
   },
   "files": [
     "test.ts",

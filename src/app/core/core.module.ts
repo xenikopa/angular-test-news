@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { NewsBackendService } from './newsBackend/newsBackend.service';
 import { CommonModule } from '@angular/common';
-import { INewsBackendService } from './newsBackend/common/INewsBackendService';
+import { INewsBackendService } from './backend/news/common/INewsBackendService';
 import { HttpClientModule } from '@angular/common/http';
-import { NotificationService } from './notificationService/notification.service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { INotification } from './notificationService/INotification';
+import { INotification } from './notification/INotification';
+import { NewsBackendService } from './backend/news/news-backend.service';
+import { NotificationService } from './notification/notification.service';
 @NgModule({
   imports: [
     CommonModule,
