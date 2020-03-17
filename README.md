@@ -6,6 +6,9 @@ Simple news list with:
 - pagination
 - delete, update functions for admins
 - sorting
+- [wrapper for material component](src/app/shared/confirm-modal/), [material components](src/app/core/notification/notification.service.ts)
+- working tests of components, [backend-service](src/app/core/backend/news/news-backend.service.spec.ts)
+- [dynamic render](src/app/modules/news/news.service.ts)
 
 Stack:
 - Angular 9

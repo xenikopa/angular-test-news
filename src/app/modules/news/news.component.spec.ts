@@ -15,6 +15,7 @@ import { NewsBackendService } from 'src/app/core/backend/news/news-backend.servi
 import { AppService } from 'src/app/app-component/app.service';
 import { INotification } from 'src/app/core/notification/INotification';
 import { NotificationService } from 'src/app/core/notification/notification.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('NewsComponent', () => {
   let componentFixture: ComponentFixture<NewsComponent>;
@@ -27,7 +28,8 @@ describe('NewsComponent', () => {
         FormsModule,
         HttpClientModule,
         SharedModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
       ],
       declarations: [
         PageParserPipe,
@@ -42,6 +44,7 @@ describe('NewsComponent', () => {
     });
     componentFixture = TestBed.createComponent(NewsComponent);
     component = componentFixture.componentInstance;
+    componentFixture.detectChanges();
   });
 
   it('should create list', () => {

@@ -30,8 +30,9 @@ describe('NewsService', () => {
       ]
     });
 
-    service = TestBed.inject(NewsService);
+    service = TestBed.get(NewsService);
     fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
   });
 
   it('render is a function', () => {
