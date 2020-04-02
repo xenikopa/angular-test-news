@@ -14,7 +14,7 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
-    "deploy": "npm run build && gh-pages"
+    "deploy": "npm run build && gh-pages -d dist/app-news"
   },
   "private": true,
   "dependencies": {
