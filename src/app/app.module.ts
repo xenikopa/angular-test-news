@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewsModule } from './modules/news/news.module';
 import { IAppContainerService } from './app-component/common/IAppContainerService';
 import { AppService } from './app-component/app.service';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { AppService } from './app-component/app.service';
     SharedModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    NewsModule
+    NewsModule,
+    RouterModule,
   ],
   providers: [
     { provide: IAppContainerService, useClass: AppService }

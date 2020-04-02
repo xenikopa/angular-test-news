@@ -8,13 +8,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build:prod": "ng build --prod",
+    "build": "ng build --prod --base-href='angular-pet-news'",
+    "build:dev": "ng build",
     "test": "ng test --watch=false",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
-    "deploy": "npm run build && gh-pages -d dist/app-news"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "private": true,
   "dependencies": {
