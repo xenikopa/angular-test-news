@@ -8,7 +8,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --base-href='angular-pet-news'",
+    "build": "ng build --prod",
     "build:dev": "ng build",
     "test": "ng test --watch=false",
     "lint": "ng lint",
