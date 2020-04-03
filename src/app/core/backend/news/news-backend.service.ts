@@ -14,7 +14,7 @@ export class NewsBackendService extends INewsBackendService {
   }
 
   public getAllNews(): Observable<Array<INewsItem>> {
-    return this.httpClient.get<{ articles: Array<INewsItem>}>('../../../assets/news.json')
+    return this.httpClient.get<{ articles: Array<INewsItem>}>('./assets/news.json')
         .pipe(
           map(x => x.articles),
           catchError(error => {
